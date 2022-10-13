@@ -23,10 +23,10 @@ public class EnemyInstantiate : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (enemiesLvlAtTimeX % MAXenemiesForEvo == 0)
-        {
-           X = (enemiesLvlAtTimeX * Time.timeSinceLevelLoad) / timeX;
-        }       
+       
+           
+        X = (enemiesLvlAtTimeX * Time.timeSinceLevelLoad) / timeX;
+             
         DeltaX1X2 = spawninEvolutionOnTimeEnemy.Evaluate(X/timeX);
         if (Time.time > lastSpawn + DeltaX1X2 )
         {

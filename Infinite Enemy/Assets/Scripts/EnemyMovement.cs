@@ -30,15 +30,14 @@ public class EnemyMovement : MonoBehaviour
         if (timer < 2f)
         {
             timer += Time.deltaTime;
+            increaseSpeed();
         }
         else if (timer > 2f)
         {
+            increaseSpeed();
             timer = 0f;
             randomPos = new Vector2(Random.Range(-45f,45f), Random.Range(-24f, 24f) * speed);
         }
-        
-       
-            
 
     }
 
@@ -50,8 +49,8 @@ public class EnemyMovement : MonoBehaviour
     void increaseSpeed()
     {
         int random = Random.Range(0, 2);
-        if(random == 1) { if (speed >= 3 && speed <= 22f) speed += 1.5f; }
-        if (random == 1) { if (speed >= 3 && speed <= 15f) speed -= 2f; }
+        if(random == 0) { if (speed >= 10 && speed <= 25f) speed += 2.5f; }
+        if (random == 1) { if (speed >= 10 && speed <= 30f) speed -= 2.8f; }
 
 
     }

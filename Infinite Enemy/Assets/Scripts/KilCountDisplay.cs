@@ -9,6 +9,7 @@ public class KilCountDisplay : MonoBehaviour
     public int killCount = 0;
     TextMeshProUGUI text;
     GameObject event10Kill;
+    public int killToreward = 10;
 
     // Start is called before the first frame update
     private void Awake()
@@ -26,23 +27,15 @@ public class KilCountDisplay : MonoBehaviour
         
         text.text = "Kill Count " + killCount;
 
-        //if(killCount >0 && killCount % 10 == 0)
-       // {
-         //   event10Kill.SetActive(true);
-        //    Time.timeScale = 0;
-        //}
+        if(killCount >0 && killCount % killToreward == 0)
+        {
+          event10Kill.SetActive(true);
+          Time.timeScale = 0;
+          killToreward += 35;
+        }
         
 
 
     }
-    public void Ricochet()
-    {
-        event10Kill.SetActive(false);
-        Time.timeScale = 1;
-    }
-    public void DoubleHit()
-    {
-        event10Kill.SetActive(false);
-        Time.timeScale = 1;
-    }
+ 
 }

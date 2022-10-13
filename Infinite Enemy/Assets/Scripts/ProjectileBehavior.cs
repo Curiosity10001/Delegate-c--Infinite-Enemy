@@ -8,11 +8,15 @@ public class ProjectileBehavior : MonoBehaviour
     [SerializeField] float speed = 0.5f;
     KilCountDisplay deadEnemy;
     float timer = 0;
-    
+    public float timeOfDeath;
+    KilCountDisplay killtoreward;
+    public Vector2 enemyDeadPos;
+
     // Start is called before the first frame update
     void Start()
     {
         deadEnemy = FindObjectOfType<KilCountDisplay>();
+        killtoreward = FindObjectOfType<KilCountDisplay>();
     }
 
     // Update is called once per frame
@@ -23,7 +27,7 @@ public class ProjectileBehavior : MonoBehaviour
         {
             Destroy(gameObject);
         }
-       
+        
         
     }
 
@@ -35,6 +39,12 @@ public class ProjectileBehavior : MonoBehaviour
             Destroy(collision.gameObject);
             Destroy(gameObject);
             deadEnemy.killCount++;
+            if(deadEnemy.killCount % killtoreward.killToreward == 0)
+            {
+                timeOfDeath = Time.time;
+                enemyDeadPos = collision.gameObject.transform.position;
+            }
+               
         }
     }
     private void FixedUpdate()

@@ -18,6 +18,7 @@ public class ProjectileSpawn : MonoBehaviour
     private float X;
     Vector2 playerPos;
     GameObject bullet;
+    
 
 
     private void Awake()
@@ -33,17 +34,13 @@ public class ProjectileSpawn : MonoBehaviour
     void Update()
     {
         playerPos = playerGObject.transform.position;
-        
-
-        if (BulletsLvlAtTimeX % MAXBulletsForEvo == 0)
-        {
-            X = (BulletsLvlAtTimeX * Time.timeSinceLevelLoad) / timeX;
-        }
+  
+        X = (BulletsLvlAtTimeX * Time.timeSinceLevelLoad) / timeX;
+ 
         DeltaX1X2 = spawninEvolutionOnTimeBullets.Evaluate(X / timeX);
         if (Time.time > lastSpawn + DeltaX1X2)
         {
             Spawn();
-            Debug.Log("spawn initiated");
         }
 
 
@@ -52,11 +49,11 @@ public class ProjectileSpawn : MonoBehaviour
 
     public void Spawn()
     {
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < 360; i += 45)
         {
-            Instantiate(projectile, playerPos, Quaternion.Euler(0f,0f, (90f * i)), transform);
+            Instantiate(projectile, playerPos, Quaternion.Euler(0f,0f, (1 * i)), transform);
             player.color = Color.green;
-            Debug.Log(i);
+          
         }
         BulletsLvlAtTimeX += 4;
         lastSpawn = Time.time;

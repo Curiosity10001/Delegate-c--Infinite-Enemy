@@ -14,6 +14,13 @@ public class DeadEnemy60Reward : MonoBehaviour
     Button RandomRicochetButton;
     Button DoubleAttackButton;
     GameObject event10Kill;
+    int maxRicochet = 0;
+    int vRicochetcalled = 0;
+
+
+    public GameObject strayBullet;
+    ProjectileBehavior enemy;
+   
 
     // Start is called before the first frame update
 
@@ -35,6 +42,32 @@ public class DeadEnemy60Reward : MonoBehaviour
         
        
       
+    }
+
+    public void Ricochet()
+    {
+        
+        enemy = FindObjectOfType<ProjectileBehavior>();
+
+        vRicochetcalled++;
+
+        if (vRicochetcalled <= 3)
+        {
+            if (maxRicochet <= 3)
+            {
+                Instantiate(strayBullet, enemy.enemyDeadPos , Quaternion.identity, transform);
+                maxRicochet++;
+            }
+        }
+        Time.timeScale = 1;
+        event10Kill.SetActive(false);
+        
+
+    }
+    public void DoubleHit()
+    {
+        event10Kill.SetActive(false);
+        Time.timeScale = 1;
     }
 }
 
