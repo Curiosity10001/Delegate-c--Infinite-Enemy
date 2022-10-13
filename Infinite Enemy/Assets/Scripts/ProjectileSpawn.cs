@@ -4,18 +4,20 @@ using UnityEngine;
 
 public class ProjectileSpawn : MonoBehaviour
 {
-    public SpriteRenderer player;
-    public GameObject playerGObject;
+    [SerializeField] SpriteRenderer player;
+    [SerializeField] GameObject playerGObject;
     [SerializeField] GameObject projectile;
-    float timer = 0;
-    int numOfProjectiles = 0;
-    Vector2 spawnpos;
-    GameObject projectile1;
-    GameObject projectile2;
-    GameObject projectile3;
-    GameObject projectile4;
+    [SerializeField] int BulletsLvlAtTimeX;
+    [SerializeField] int MAXBulletsForEvo;
+    [SerializeField] float timeX;
+    [SerializeField] AnimationCurve spawninEvolutionOnTimeBullets;
+
+
+    private float DeltaX1X2;
+    private float lastSpawn;
+    private float X;
     Vector2 playerPos;
-    float spawnspeed = 1.5f;
+    GameObject bullet;
 
 
     private void Awake()
@@ -24,69 +26,44 @@ public class ProjectileSpawn : MonoBehaviour
     }
     void Start()
     {
-        
+        Debug.Log("game start");
     }
 
     // Update is called once per frame
     void Update()
     {
-        timer += Time.deltaTime;
-       
-        Spawn();
-        
-        if (timer >= spawnspeed)
-        {
-            numOfProjectiles = 0;
-            timer = 0;
-        }
         playerPos = playerGObject.transform.position;
-       
+        
+
+        if (BulletsLvlAtTimeX % MAXBulletsForEvo == 0)
+        {
+            X = (BulletsLvlAtTimeX * Time.timeSinceLevelLoad) / timeX;
+        }
+        DeltaX1X2 = spawninEvolutionOnTimeBullets.Evaluate(X / timeX);
+        if (Time.time > lastSpawn + DeltaX1X2)
+        {
+            Spawn();
+            Debug.Log("spawn initiated");
+        }
+
+
 
     }
 
     public void Spawn()
     {
-        
-        if (numOfProjectiles == 0)
-            {
+        for (int i = 0; i < 4; i++)
+        {
+            Instantiate(projectile, playerPos, Quaternion.Euler(0f,0f, (90f * i)), transform);
             player.color = Color.green;
-            spawnpos = playerPos + new Vector2(0,4f);
-            projectile1 = Instantiate(projectile,spawnpos, Quaternion.identity, transform);
-            numOfProjectiles++;
-             }
-            else if (numOfProjectiles == 1)
-            {
-            player.color = Color.green;
-            spawnpos = playerPos + new Vector2(4f, 0);
-            projectile2 = Instantiate(projectile, spawnpos, Quaternion.identity, transform);
-            numOfProjectiles++;
-             }
-            else if (numOfProjectiles == 2)
-            {
-            player.color = Color.green;
-            spawnpos = playerPos + new Vector2(0, -4f);
-            projectile3 = Instantiate(projectile, spawnpos, Quaternion.identity, transform);
-            numOfProjectiles++;
-              }
-            else if (numOfProjectiles == 3)
-            {
-            player.color = Color.green;
-            spawnpos = playerPos + new Vector2(-4f, 0);
-            projectile4 = Instantiate(projectile, spawnpos, Quaternion.identity, transform);
-            numOfProjectiles++;
-        } else if ( numOfProjectiles == 4) player.color = Color.white;
-
-       
-
+            Debug.Log(i);
+        }
+        BulletsLvlAtTimeX += 4;
+        lastSpawn = Time.time;
+        player.color = Color.white;
     }
 
-    private void FixedUpdate()
-    {
-        if (projectile1) projectile1.transform.Translate(projectile.transform.up);
-        if(projectile2) projectile2.transform.Translate(projectile.transform.right);
-        if(projectile3) projectile3.transform.Translate((projectile.transform.up) * -1);
-        if(projectile4) projectile4.transform.Translate((projectile.transform.right) * -1);
-    }
+    
 }
 
 

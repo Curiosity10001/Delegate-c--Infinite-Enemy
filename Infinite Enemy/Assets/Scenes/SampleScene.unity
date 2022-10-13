@@ -152,9 +152,52 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21c776c4b0ffbec4eb89329cdfa2e86a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxEnemiesLvl: 10000
+  enemiesLvlAtTimeX: 0
+  MAXenemiesForEvo: 8
+  timeX: 3
   enemy: {fileID: 2044701943640926325, guid: 5a12e5ca98811964d98a69c599227b05, type: 3}
-  nbEnemiesLvl: 0
+  spawninEvolutionOnTimeEnemy:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.12988323
+      value: 0.033459798
+      inSlope: 0.2828794
+      outSlope: 0.2828794
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.48256066
+      value: 0.18628404
+      inSlope: 0.5322667
+      outSlope: 0.5322667
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1.0496216
+      value: 0.6559868
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!4 &211651980
 Transform:
   m_ObjectHideFlags: 0
@@ -1338,6 +1381,33 @@ MonoBehaviour:
   player: {fileID: 907425461}
   playerGObject: {fileID: 907425460}
   projectile: {fileID: 2448368846744693335, guid: 00ef102beefe25d4199f91dc41fd51fd, type: 3}
+  BulletsLvlAtTimeX: 0
+  MAXBulletsForEvo: 10
+  timeX: 10000
+  spawninEvolutionOnTimeBullets:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!4 &1839859072
 Transform:
   m_ObjectHideFlags: 0

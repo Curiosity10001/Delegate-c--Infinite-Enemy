@@ -5,7 +5,7 @@ using TMPro;
 
 public class ProjectileBehavior : MonoBehaviour
 {
-
+    [SerializeField] float speed = 0.5f;
     KilCountDisplay deadEnemy;
     float timer = 0;
     
@@ -37,5 +37,8 @@ public class ProjectileBehavior : MonoBehaviour
             deadEnemy.killCount++;
         }
     }
-    
+    private void FixedUpdate()
+    {
+        transform.Translate(transform.right * speed);
+    }
 }

@@ -26,11 +26,11 @@ public class KilCountDisplay : MonoBehaviour
         
         text.text = "Kill Count " + killCount;
 
-        if(killCount >0 && killCount % 10 == 0)
-        {
-            event10Kill.SetActive(true);
-            Time.timeScale = 0;
-        }
+        //if(killCount >0 && killCount % 10 == 0)
+       // {
+         //   event10Kill.SetActive(true);
+        //    Time.timeScale = 0;
+        //}
         
 
 

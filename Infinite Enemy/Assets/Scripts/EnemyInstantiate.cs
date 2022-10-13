@@ -4,118 +4,41 @@ using UnityEngine;
 
 public class EnemyInstantiate : MonoBehaviour
 {
-    [SerializeField] int maxEnemiesLvl;
+    [SerializeField] int enemiesLvlAtTimeX;
+    [SerializeField] int MAXenemiesForEvo;
+    [SerializeField] int timeX;
     [SerializeField] GameObject enemy;
+    [SerializeField] AnimationCurve spawninEvolutionOnTimeEnemy;
+    private float DeltaX1X2;
+    private float lastSpawn;
+    private float X;
 
-    public int nbEnemiesLvl = 0;
-    float timer = 0;
+
 
     void Start()
     {
-        Instantiate(enemy, new Vector2 (35f,23f), Quaternion.identity, transform);
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (nbEnemiesLvl>=0  && nbEnemiesLvl < 30 )
+        if (enemiesLvlAtTimeX % MAXenemiesForEvo == 0)
         {
-            if (timer <= 1.5f)
-            {
-                timer += Time.deltaTime;
-            }
-            else if (timer > 1.5f)
-            {
-                timer = 0;
-                Spawn();
-            }
-
-        }
-        if (nbEnemiesLvl >= 30 && nbEnemiesLvl < 60)
+           X = (enemiesLvlAtTimeX * Time.timeSinceLevelLoad) / timeX;
+        }       
+        DeltaX1X2 = spawninEvolutionOnTimeEnemy.Evaluate(X/timeX);
+        if (Time.time > lastSpawn + DeltaX1X2 )
         {
-            if (timer <= 1.3f)
-            {
-                timer += Time.deltaTime;
-            }
-            else if (timer > 1.3f)
-            {
-                timer = 0;
-                Spawn();
-            }
-
+            Spawn();
         }
-        if (nbEnemiesLvl >= 60 && nbEnemiesLvl < 95)
-        {
-            if (timer <= 1f)
-            {
-                timer += Time.deltaTime;
-            }
-            else if (timer > 1f)
-            {
-                timer = 0;
-                Spawn();
-            }
 
-        }
-        if (nbEnemiesLvl >= 95 && nbEnemiesLvl < 200)
-        {
-            if (timer <= 0.8f)
-            {
-                timer += Time.deltaTime;
-            }
-            else if (timer > 0.8f)
-            {
-                timer = 0;
-                Spawn();
-            }
-
-        }
-        if (nbEnemiesLvl >= 200 && nbEnemiesLvl < 450)
-        {
-            if (timer <= 0.6f)
-            {
-                timer += Time.deltaTime;
-            }
-            else if (timer > 0.6f)
-            {
-                timer = 0;
-                Spawn();
-            }
-
-        }
-        if (nbEnemiesLvl >= 450 && nbEnemiesLvl < 800)
-        {
-            if (timer <= 0.3f)
-            {
-                timer += Time.deltaTime;
-            }
-            else if (timer > 0.3f)
-            {
-                timer = 0;
-                Spawn();
-            }
-
-        }
-        if (nbEnemiesLvl >= 800)
-        {
-            if (timer <= 0.1f)
-            {
-                timer += Time.deltaTime;
-            }
-            else if (timer > 0.1f)
-            {
-                timer = 0;
-                Spawn();
-            }
-
-        }
+        
     }
 
     public void Spawn()
     {
 
-        if (nbEnemiesLvl < maxEnemiesLvl)
-        {
             int LorR = Random.Range(0, 2);
             Vector3 spawnpos;
             if (LorR == 0)
@@ -128,7 +51,8 @@ public class EnemyInstantiate : MonoBehaviour
             }
 
             Instantiate(enemy, spawnpos, Quaternion.identity, transform);
-            nbEnemiesLvl++;
-        }
+            enemiesLvlAtTimeX++;
+            lastSpawn = Time.time;
+        
     }
 }
